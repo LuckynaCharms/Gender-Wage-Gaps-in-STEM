@@ -1,0 +1,240 @@
+---
+title: "Exploring Gender Inequality in Entry STEM Careers"
+author: "Luckyna Laurent"
+date: "26 April 2022"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+toc: TRUE
+thanks: 'Code and data are available in this GitHub repository:'
+abstract: The field of science, technology, engineering, and mathematics (STEM) has
+  predominantely been occupied by men up until the late nineteenth century where enrollment
+  in U.S. higher educated has seen an increase of women. Many individuals would argue
+  that the lack of women representation in STEM careers may suggest less gender inequality.
+  Although progressive efforts have shown that the wage gap between males and females
+  are becoming less significant, data from recent cohorts in the American Community
+  Survey between 2009 and 2018 that track the evolution of gender inequalities in
+  STEM employment showed that women with STEM degrees face employment prospects that
+  Wage Gap, STEM, feminism, patriarchy resemble those of men without STEM degrees.
+  \par \textbf {Keywords:} Gender Inquality, STEM, Discrimination, Feminism, Queen Bee Phenomenon
+subtitle: A study on recent trends of STEM employment with evidence from Millenial
+  Birth Cohorts
+bibliography: references.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# load libraries
+library(tidyverse)
+library(bookdown)
+library(knitr)
+library(ggplot2)
+library(tinytex)
+library(readr)
+library(kableExtra)
+library(gridExtra)
+```
+
+## Introduction
+
+In this paper, we will be discussing about the gender inequalities in STEM careers. The feminist revolution in the United States began in the 1960's and '70s where women fought for gender equality such as rights, opportunities and greater personal freedom. Many feminists such as Micky Lee (2011) suggest that scarcity in feminist political-economic studies is due to a lack of female representation, which is what many would argue is applicable to the disparity of women in STEM [@Lee2011]. Therefore, it is important to acknowledge the history of feminism and how it connects to gender inequality within STEM as the feminist revolution resulted in ending the systemic patriarchal society in the U.S. After the revolution, women were granted equal opportunities that lead to independence as it shifted the paradigm of no longer needing to rely on men for their social economic status.
+
+Referring back to Lee's argument on the scarcity of female representation in political-economic studies, STEM, most notably, computer science, is another discipline that many can argue lacks female representation. Prior to contrary belief, the field of computer science was originally dominated by women during World War II, during that time, men viewed computer science as “secretarial” but later chose to pursue the discipline upon returning from the war front. This shifted women back to pursuing careers that were deemed as “nurturing” (e.g. nurse, teacher, homemaker), which is what many psychologists such as Freud (1989) may argue. Lee (2011) quotes Freud's psychoanalytic theory of maximizing pleasure in which, she suggests that women are motivated to choose a career that brings pleasure.
+
+It is important to note that Freud (1989) is often critiqued for being sexist in the study of psychology. Respectively, his theories overemphasized gender as being a major factor for motivation and are often used as an argument for women pursuing careers that are cognitively laborious (e.g. teacher, psychologist, nurse, etc). To counteract this juxtaposition, I propose feminist psychologist, Karen Horney’s critiques against Freud with her argument that male realities cannot describe female psychology or define their genders due to the inability to experience reality from a female perspective.
+
+With this in mind, it is important to acknowledge that feminist perspectives are essential to the development in STEM as women have the ability to provide a more holistic perspective to solving problems that will result in technology being more fair and equitable. For instance, AI bias or Artificial Intelligence Bias is the output of machine learning algorithms that are created from prejudiced assumptions made during the algorithm development process or prejudices in the training data [@Dilmegani2020]. AI bias is prominent in technology industries that fail to train data and produce the algorithms that are efficient in achieving an objective for an individual. A study in a systematic review of decision-making algorithms in human resources recruitment and development found that there was a possible threat of discrimination and unfairness for women [@Kochling2020).One prominent example is Amazon's CV screening tool which is trained on biased historical data the led to a preference for male candidates. Historically, Amazon has hired more male software engineers and the algorithms for CV screenings that were trained with this historical data led to gender discrimination [@Martin2022].
+
+Recruitment is not the only inequality women face within STEM. It was found that women who hold bachelor's degrees in STEM related fields still made less than their male counterparts. [@VanHeuvelen2021] used data from the American Community Survey (ACS) between 2009 and 2018 to assess how gender disparities in STEM education translate into subsequent employment and earnings inequality within the industry. They argue from a theory of gender inequality that view men as "ideal workers" within organizations which eventually result in women exiting the industry, despite the investment in their STEM related degree [@Benard2010]. Their analyses show despite the progressive efforts of minimizing the gender gap in STEM education in recent cohorts, women still face a challenge working in STEM occupations and the industries where STEM degree holders tend to be concentrated. The probabilities showed that STEM-trained women who are employed either in STEM occupations or high-tech industries were closer to their male counterpoints without STEM degrees, making them farther from men who hold STEM degrees. It was found that there was still a large earnings gap between men and women with STEM training in their early careers as the accumulation of gender penalties over a 10-year sample are approximate to one year's salary of STEM work. Although obtaining STEM education may provide greater opportunities for women, the results show that there is still a disparity of closing the gender wage gap and achieving greater gender parity.
+
+## Data
+
+For this report, all necessary data cleaning analysis and visualization was produced with the R statistical programming language (R Core Team 2020) using the R Markdown format. This program has packages and features to assist in analyzing data. The data is publicly made avaiable through the American Community Survey [@ACS]. The *tidyverse* package is primarily used for data cleaning and manipulation [@tidyverse] which comprises of the *readr* package [@readr], *ggplot2* package [@ggplot2]. The *janitor* package is used for cleaning the data. To facilitate a reproducible workflow, the *bookdown* [@bookdown] and *knitr* [@knitr] packages were used to create tables and *kableExtra* package [@kableExtra] was used for formating the report. Lastly, the *tinytex* [@tinytex] package was used to used to convert and format this final paper for reading capabilities. 
+
+The original research was conducted by Tom VanHeuvelen from the University of Minnesota, Minneapolis and Natasha Quadlin from the University of California, Los Angeles.The data was used from ACS from 2009 to 2018 which is considered ideal for the purposes of providing highly detailed and nationally representative data on earnings, field of study, industry, occupation, and sociodemographics. 
+
+### Methodology
+
+Data was analyzed in 2009, the first year ACS collected information on respondent's fields of study making it feasible to track a decade's worth of gender inequality. Samples were restricted to those with only bachelor's degrees who were born between 1986 and 1988, or those who would enter the labour market with bachelor's degrees in the first wave of the sample year 2009. Data from this cohort who are employed and have yet transitioned into a parenthood role by 2018.
+
+### Dependent and Indepdendent Variables
+
+There are five primary variables focused on in this which are a respondent's (1) logged weekly earnings, measured by dividing the annual pretax income with the number of working weeks in a year. Whether the respondent is (2) female, (3) has a STEM degree, (4) works in a STEM occupation, and (5) works in a high-tech industry. STEM majors include but are not limited to the following: agriculture, environmental, and natural resources, computer sciences, engineering, engineering technologies, biology and life sciences, math and statistics. 
+
+In an attempt to attend trends of gender inequality, the sample is restricted to two-thirds of the sample whom did not have children by ages 30-32. For those who did not have children by 2018,the sample is restricted in each year to those without children. Then, a re-weighting technique developed by labour economists was used to construct a comparable sample of respondents based on a chosen set of observed characteristics [@DiNardo1996]. All time in-varient characteristics are collected and avaiable in the ACS: sex, quarter of birth, year of birth, state/non/US location of birth, race/ethnicity, Hispanic identity and whether the respondent was born in the US. Then, the logistic regression models were estimated with these characteristics as independent variables separately for each wave from 2009 through 2017 which helped to predict whether an individual case was in that wave or the 2018 wave.The resulting predicted probabilities were used to calculate weights that were incorporated into the survey weights provided by the ACS. The following formula was used to calculate the new weights:
+
+
+$$Reweight_{yi} = \pi_{yi} * \left( \frac{p_{yi}}{(1-p_{yi})} \middle/ \frac{\mu_{y}}{(1-\mu_{y})} \right)
+$$
+Combined, the restricted and re-weighted sample is advantageous in three ways. First, the focus on these three recent cohorts early on in their careers provides a conservative estimate of gender inequalities within STEM education and employment as they appear to be present at a younger age [@Marini1996-xc]. Second, the analysis of individuals without children acts as a compliment to other studies of STEM employment, gender wage gaps more specifically, that focus attention on an individual's parenthood status. The analyses thus allows us to bettet isolate the effects of *gender* itself from those effects that appear to be *correlated with gender* but have their own independent effects on wage attainment, such as parenthood status [@Benard_2010]. Thus this re-weighting process allows us to track trends in gender inequality among a comparable sample over a decade from cross sectional data.
+
+### Descriptive Statistics
+
+```{r echo = FALSE, results = 'asis'}
+options(tinytex.verbose = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+
+#import .csv file to global environment and generate table
+descriptive_statistics <- read.csv(file = "reweighted.csv")
+dt <- descriptive_statistics
+
+#rename columns
+names(dt)[names(dt) == "X"] <- "Variable"
+names(dt)[names(dt) == "Gender.Difference"] <- "Gender Difference"
+
+  knitr::kable(dt, booktabs = TRUE, caption = 'Descriptive Statistics',"pipe")
+```
+**Note**: n = 216,317. Women constitute 49.6 percent of the sample. The sample is American Community Survey (ACS) 2009–2018 respondents who are employed, not in group quarters, with a college degree or more, born between 1986 and 1988, without children. The sample is re-weighted to the 2018 distribution of all time-invariant characteristics available in the ACS. STEM = science, technology, engineering, and mathematics.
+
+  \*All mean differences between men and women are significant at the p < .001 level (two-tailed test).\
+  
+  *Table 1* shows the population sample of the data abstracted from the American Community Survey. An occupation is coded as STEM on the scheme developed for census occupation categories by the BLS [@Thbaud2018]. Similarly, the sample follows the BLS coding scheme identifying industries that have a disproportionate concentration of STEM workers, for instance, can include but are not limited to: scientific research and development services, oil and gas extraction and any other categories that fall under the broad umbrella of science and technology. High-tech industries include software publishers and data processing services, include a variety of occupational classifications, such as software engineers but also managers and administrative assistants. Althoght te majority of STEM occupations are more concentrated within high-tech industries, such occupations are not entirely situated within these industries; a software engineer can be employed within a financial institution. Then we predict respondent earnings using occupation, industry, education, and gender indicators. An assessment of both occupations and industries associated with STEM work allows us to holistically analyze gaps in not only within the field of STEM but where the disparity is concentrated within STEM education and/or employment. For instance, a software engineer may be promoted to a managerial position in an internet publishing company which in this instance, is an upward mobility in a high-tech industry and not merely a transition as a lost of STEM work [@deming2018stem].
+  
+### Predicted Earnings
+
+From this analyses, we can predict whether when a respondent is employed in either a STEM occupation and/or a high-tech industry. The next steps are to predict respondent earnings through occupation, industry, education and gender indications. In our sample, we observe a 17 percentage point difference in STEM degrees helped between men and women, a 15 percentage point difference in STEM occupations, and a 10 percentage point difference in high-tech industry employment. These statistics illustrated the disparities in STEM industries differ betwene men and women as they transition from STEM education to STEM employment. Furthermore, both STEM occupations and high-tech industries allows us to assees the return on investment of going back to pursue a STEM education is a lucrative choice to the exent to which is is beneficial for one gender and whether an individual is employed simultanioujsly in both a STEM occupation within a high-tech industry.
+
+```{r echo = FALSE, results = 'asis'}
+options(tinytex.verbose = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+
+#import .csv file to global environment and generate table
+earnings <- read.csv(file = "predicted_earnings.csv")
+df <- earnings
+
+#rename columns
+names(df)[names(df) == "STEM.Occupation"] <- "STEM Occupation"
+names(df)[names(df) == "High.Tech.Industry"] <- "High Tech Industry"
+names(df)[names(df) == "Predicted.Earnings"] <- "Predicted Earnings"
+names(df)[names(df) == "Predicted.Log.Earnings"] <- "Predicted Log Earnings"
+names(df)[names(df) == "Log.Earnings.Difference.from..I."] <- "Predicted Log Earnings from (I)"
+
+  knitr::kable(df, booktabs = TRUE, caption = 'Predicted Earnings by STEM Occupation and High-Tech Industry',"pipe")
+```
+**Note**: Values in parentheses are standard errors. All models include controls discussed in the supplemental materials. The second sample includes and indicator of parenthood status. Predicted earnings are computed from models that include all controls and an interaction between STEM occupation and
+high-tech industry. STEM = science, technology, engineering, and mathematics.
+The sample includes all respondents in the 2009–2018 ACS with college degrees, who are employed, who were born between 1986 and 1988, and who
+do not have children. Samples are re-weighted to reflect distribution from year 2018.
+
+ \*The sample includes all respondents in the 2009–2018 ACS with college degrees, who are employed, and who are between the ages of 25 and 64 years.
+***p < .001 (two-tailed tests).\
+
+### Observations
+
+*Table 2* shows the importance of gendered employment gaps in STEM among the recent cohort of college-educated workers prior to parenthood, indicating the earning advantages associated with STEM occupations and high-tech industries are large within the recent cohort. Prior research has brought awareness to the challenges women face in science and technology, including the the classroom and the industry. Women in STEM are often being viewed as less competent and committed than their male counterparts and these assumptions may prevent them from pursuing careers that are more demanding and entering careers that align with their educational training. This raises a question of the probability of more women deciding to no logner pursue STEM due to continuing acts of discrimination. To further understand this concern, we analyzed a decade of data from the ACS focusing on women's beginnig of careers, prior to parenthood and found that despite womens' gains in STEM, there are still substantial inequalities that remain when it comes to earnings an employment.
+
+A stable pattern of employment of women who earned STEM degrees closely resembled men who did not earn STEM degrees.For women who do gain entry into STEM work, there was still substantial earnings gaps that still remained in younger cohorts in comparison to older ones. This suggests that for women with STEM degress and in STEM occupations, the gender earnings gap is prominent in the first decade of their careers, prior to parenthood which is roughly equivalent to one year's salary.
+
+## Trends in Gender Earnings Gaps
+
+Next, we assess the extent of which gender earnings gap emerge throughout the years. By plotting the predicted earnings gap in real dollars to get a sense of the magnitude of gender difference in earnings. Each panel in *Figure 1* represents the results for workers of the possible combinations of STEM occupations and high-tech industries Solid lines present the gender contrast for those with other degrees and the dashed lines represent those with a STEM degree. According to *Statistics Can*, the gender wage gap is calculated by dividing woman's earnings by a man's earnings and can be interpreted as the number of cents that women earn for every dollar earned by men [@StatsCan].
+
+First, there are no observed gender difference among respondents without STEM degrees in the first three to five years of observation suggesting relative gender earnings equality. However, we observe a gender gap outside occupations that grows to about $80 to $100 per week by 2018.
+
+Second, we observe a gender earnings gaps among respondents with STEM education and in STEM work. Notably, it is observed by the second year of those in STEM occupations. Across STEM work, the gender earnings gap was largely stable overtime with a range between $150 and $250 per week from 2010-2018. Assuming that this pattern is constant for a 50-week employment for STEM-educated workers, a $200 per week penalty over 9 years translates to approximately $90,000 less in earnings for women during the first decade of labour market experience. To elaborate on this number, we examine the mean annual income of our sample working in high-tech fields with STEM degrees and found it be about $70,000. Thus, the culmination of nine years of the gender wage gap for this highly paid group is slightly more than one year’s salary among these early career workers.
+
+In this case, the gender earnings gap either (1) emerges over time among those without STEM education and outside of STEM work at a very modest level or (2) exists outside of employment among those with a STEM education and inside STEM work. These results are critically drawn from a highly restricted sample that was developed as a conservative estimate of gender inequality as possible. The STEM industry is where many economic studies argue that the gender earnings gap should be the smallest, considering the fact that employees have not yet face confounding factors that make gender wage gaps more pronounced. In other words, the estimates provided present the best-case scenario when it comes to understanding the earnings within STEM education and employment today, yet the gender wage gaps we observed have made modest increases throughout the past century.
+
+
+```{r, echo = FALSE, results = FALSE}
+
+no_occ_tech <- read.csv(file = "no_Stem_occ_no_hi_tech.csv")
+
+no_occ_hi_tech = read.csv(file = "no_Stem_occ_hi_tech.csv")
+head(no_occ_hi_tech)
+
+stem_occ_no_hi_tech <- read.csv(file = "Stem_occ_no_hi_tech.csv")
+head(stem_occ_no_hi_tech)
+
+stem_occ_hi_tech <- read.csv((file = "stem_occ_hi_tech.csv"))
+head(stem_occ_hi_tech)
+
+head(no_occ_tech)
+
+ggp1 <- ggplot(no_occ_tech, aes(x = year, y = gap, color = degree)) +
+  geom_ribbon(aes(ymin = gap - std, ymax = gap + std, fill = degree), alpha = 0.2, color = NA) +
+  geom_line() + 
+  ylim(-500, 500) +
+  labs(subtitle = "Fig. 1.1 No Stem Occ. / No High-Tech Ind", y = "Earnings gap ($)", x = "Year")
+
+
+ggp2 <- ggplot(no_occ_hi_tech, aes(x = year, y = gap, color = degree)) + 
+  geom_ribbon(aes(ymin = gap - std, ymax = gap + std, fill = degree), alpha = 0.2, color = NA) + 
+  geom_line() + 
+  ylim(-500, 500) + 
+  labs(subtitle = "Fig. 1.2 No Stem Occ. / High-Tech Ind", y = "Earnings gap ($)", x = "Year") 
+
+ggp3 <-ggplot(stem_occ_no_hi_tech, aes(x = year, y = gap, color = degree)) +
+  geom_ribbon(aes(ymin = gap - std, ymax = gap + std, fill = degree), alpha = 0.2, color = NA) +
+  geom_line() +
+  ylim(-500,500) +
+  labs(subtitle = "Fig. 1.3 Stem Occ. / No High-Tech Ind", y = "Earnings gap ($)", x = "Year")
+
+ggp4 <-ggplot(stem_occ_hi_tech, aes(x = year, y = gap, color = degree)) + 
+  geom_ribbon(aes(ymin = gap - std, ymax = gap + std, fill = degree), alpha = 0.2, color = NA) +
+  geom_line()+ylim(-500, 500) + 
+  labs(subtitle = "Fig. 1.4 Stem Occ. / High-Tech Ind", y = "Earnings gap ($)", x = "Year")
+
+grid.arrange(ggp1, ggp2, ggp3, ggp4, ncol = 2, nrow = 2)
+```
+
+**Figure 1.** Gender earnings gaps over time, by STEM degree and STEM work  
+**Source:** American Community Survey, 2009 to 2018.  
+*Note:* The sample is employed respondents with college degrees born between 1986 and 1988, without children. All years are reweighted to the 2018 distributions of time-invariant characteristics. Shaded areas indicate 95 percent confidence intervals. Results are computed from regression models interacting gender, science, technology, engineering, and mathematics (STEM) degree, STEM occupation (Occ.), and high-tech industry (Ind). Models are estimated separately by year.
+
+The graph from *Figure 1.1* shows a relatively equal distribution of the gender earnings gap non-STEM degree and STEM degree holders who do not work in a STEM occupation and non high-tech industry. The shaded corresponding areas denote a 95 percent confidence interval of the potential gap earnings calculated by taking the value of the gap and its standard deviation.
+
+The graph from *Figure 1.2* shows a greater disparity of the gender earnings gap of those in non-STEM occupations in high-tech industries. We see that the gap is substantial for those with STEM degrees as women are earning up to $150 less per week back in 2014 but eventually equalizes towards 2018. *Figure 1.3* shows an increasing trend of the gender wage gap for those with STEM degrees who work in STEM occupations but are not in high-tech industries.
+
+However, this trend is more equal to the *Figure 1.1.* which suggests that although there is more equality in non-STEM industries, the gap is still substantial for both gender holding STEM degrees and having the same credentials. There is a notable pattern for all graphs showing contrasting trends which may suggest a possibility of structural unemployment due to shifts in an economy. These types of shifts happen when there is a mismatch or gap between skills and jobs that are available in the labour market.
+
+## Results
+
+Research has made clear of the challenges women face in science and technology, both in education and in STEM occupations. Women in STEM often face discrimination due to less competency and commitment that may present them with negative assumptions that restrict them from being hired into lucrative jobs that align with their educational training and expertise. There has been a shift towards women pursuing STEM education at colleges and universities world wide for the past 50 years. Upon analyzing 10 years of data from the ACS, we find that despite the increase of women in STEM majors over the past century, there are still substantial inequalities that remain when it comes to employment and earnings. Even in recent cohorts, it was expected that there would be modest gender differences however, there were substantial inequalities in employment and earnings among those with STEM degrees and employed in STEM work. There was a stable pattern of employment of women who earned STEM degrees that closely resembled men who did not earn STEM degrees in the probability of working in either a STEM occupation or a high-tech industry.For women who do gain entry into STEM work, we found a substantial earnings gap that remain to be a significant issue in their relative magnitude for this younger cohort compared with older ones, nor do the earnings improve over their career.
+
+In contrast to other segments of the labour market where modest gaps emerge within the first decade of someone's early career, we observe thay STEM-trained workers face a near-immediate and large gender earnings gap. A simple assessment of the magnitude suggests that for women with STEM degrees and in STEM occupations, gender earnings gap in the first decade of their careers, prior to any parenthood penalty, are roughly equivalent to one year's salary. Altogether, the results suggests a complication to those advocating the equalizing of STEM education as a direct pathway for improving women's status in society. This ultimately goes against [@Lee2011] argument of the lack of female representation in political-economic studies being the reason why women choose to not pursue these lucrative careers. Based on the data and the trends, it appears that women are pursuing the education required to enter these industries but still face the discrimination within society. This is an important implication for scholars and policy makers as we find that there are barriers to equal employment opportunity that are present in these lucrative sectors of the labour market that are attractive to pursuing STEM education, that is, high-tech industries such as software, research and development, and other jobs within the umbrella of science and technology.
+
+Additionally, women face substantial earning penalties once employed with similar STEM employment. The data analysis suggest that this process is structured as much by gender as it is by STEM training. Contrary to popular belief of the unequal representation in STEM work, our results pose a counterargument in which this are unrelated to issues of gender discrimination. A more compelling answer focuses on mechanisms that create barriers for women with the knowledge and training to join STEM work, from recruitment to culture and routines in STEM workplaces to broader conceptions of women's status. A question that arises is, where do STEM-trained women go when not employed in STEM jobs? Do their occupational characteristics differ from similar men with STEM degrees outside of STEM employment? This is highlighted in the *Appendix Figure 1* where we analyzed the other common occupations for women which are in health and teaching. Although health occupations tend to have higher than average pay and are STEM adjacent, they are not considered STEM jobs; suggesting that many women use STEM degrees to demonstrate competence for admission to medical, pharmacy, and nursing school. All of these common occupancy have lower pay compared with the typical pay for STEM employment. Ultimately, although health and teaching jobs may have alternative benefits for women not provided in STEM work, we bring to awareness that the occupations for STEM-trained women tend to be lower paid and gender segregated which pose a critical concern for future research.
+
+## Discussions
+
+Many scholars and prior research argue that women may pursue careers that are more rewarding and high-paying such in healthcare. There is potential for further research on the environment of women in STEM versus non-STEM careers to better understand where the differences are within these work environments. The healthcare industry, most notably nurses, are in environments where they are surrounded by other women, suggesting that environment could be a factor in pursuing a lucrative career. Research has shown that transferring o another hospital is a more common exit strategy for a nurse, the second being moving to a new department that is more commonly explained by dissatisfaction with pay and benefits. In this case, nurses have more horizontal leverage when it comes to increasing salaries as opposed to women in STEM who more often have to take on managerial roles for more pay (*Appendix Figure 2*).
+
+The impact of an individual's environment and work life balance for a woman given the many roles that are expected within the twenty-first century is what [@Lee2011] has yet to acknowledge. In that case, her argument of pursuing a career dominated by men is a counterproductive approach to improving a woman's status within a patriarchal society as the systems were created by men. In this case, studying gender inequalities cannot simply be viewed as black and white as there can be many influences that can affect women in the work place. Nature and nurture is a theory studied by many researchers that suggest humans can be influenced either by environment and their biological factors. We see this is prominent in early research of STEM teachers favoring male students over their equally as competent female students. Social psychological phenomenons such as the queen bee syndrome may also play a role of discrimination in the workplace that may affect a women to ascend through the glass ceiling as female leaders may unconsciously distance themselves from other women during their academic and professional work. This phenomenon has also been studied in the nursing industry which showed that women adapt to this behavior due to ambition, competition and emotional approaches that cannot be easily conveyed due to the environment [@Sengul2019].
+
+The study found a similar theme of women being perceived as less committed and lacking skills in comparison to male nurses. In terms of managerial support, the study found that managers encouraged women to behave like men to compete as a third of the study suggested that traits associated with masculinity involved being more detail orientated and having better communication. Women executives also felt that that they were more ambitious in comparison to their female colleagues and more similar of their male colleagues when self-assessing their personality, a common behavior of the queen bee phenomenon which is something that I argue against and self-reported personality assessments are not a reliable indicator of one's behavior as it lacks validity.
+
+In conclusion, this analysis suggests that equalization in STEM education education does not guarantee access to, and equality within STEM work. Analyzing gender wage trends is one of the ways we can find disparities in the industry however, there are other factors that may play a role in a woman's ability to ascend the corporate ladder and her ability to pursue a lucrative career within STEM. Ultimately, we see how these factors play a role at a macro-level such as the lack of equality that may lead to the lack of representation within a field of study and/or employment industry, to social psychological factors that may lead to low turnover rates within a woman's career.
+
+\pagebreak
+## Appendix
+``` {r}
+women_non_stem <- read.csv(file = "women_non_stem.csv")
+dt <- women_non_stem
+
+  knitr::kable(dt, booktabs = TRUE, caption = 'Most common occupations of women in non-STEM occupations with STEM degrees',"pipe")
+
+```
+
+**Appendix: Figure 1:** Most common occupations of women in non-STEM occupations with STEM degrees
+
+```{r}
+post_exit_choices <- read.csv(file = "post_exit_choices.csv")
+dc <- post_exit_choices
+
+names(dc)[names(dc) == "How.often.did.you.think.about.a.transfer.to"] <- "How often did you think about a transfer to"
+names(dc)[names(dc) == "Several.times.per.year"] <- "Several times per year"
+names(dc)[names(dc) == "Several.times.per.month"] <- "Several times per month"
+names(dc)[names(dc) == "Several.times.per.week"] <- "Several times per week"
+
+knitr::kable(dc, booktabs = TRUE, caption = 'Frequencies of intention to leave scores for various post-exit choices (ITL)',"pipe")
+```
+**Appendix: Figure 2:** Frequencies of intention to leave scores for various post-exit choices
+
+Source: [@nurses]
+
+\pagebreak
+## References

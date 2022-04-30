@@ -1,0 +1,11 @@
+,Total,Men,Women,Gender Difference
+Logged weekly wages,6.574,6.649,6.499,-0.15
+STEM degree,0.236,0.322,0.15,-0.172
+STEM occupation,0.158,0.234,0.081,-0.153
+High-tech industry,0.139,0.188,0.091,-0.097
+STEM degree in STEM occupation,0.661,0.701,0.544,-0.157
+STEM degree in other occupation,0.156,0.205,0.115,-0.09
+STEM degree in high-tech industry,0.512,0.593,0.342,-0.251
+STEM degree in other industry,0.192,0.259,0.131,-0.128
+STEM occupation in high-tech industry,0.553,0.631,0.388,-0.243
+STEM occupation in other industry,0.094,0.143,0.051,-0.092

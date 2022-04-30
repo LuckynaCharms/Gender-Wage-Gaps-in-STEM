@@ -1,0 +1,11 @@
+﻿STEM Occupation,High-Tech Industry,Predicted Earnings,Predicted Log Earnings,Log Earnings Difference from (I)
+Sample: 1986–1988 birth cohort,,,,
+(1) No,No,671.8,6.51,
+(2) No,Yes,854.1,6.75,.240*** (.009)
+(3) Yes,No,838.8,6.732,.221*** (.010)
+(4) Yes,Yes,988.3,6.896,.386*** (.011)
+Sample: all aged 25–64 years,,,,
+(1) No,No,"1,073.80",6.979,
+(2) No,Yes,"1,452.40",7.281,.303*** (.005)
+(3) Yes,No,"1,318.20",7.184,.206*** (.004)
+(4) Yes,Yes,"1,511.70",7.321,.343*** (.006)
