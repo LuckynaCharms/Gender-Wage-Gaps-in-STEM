@@ -8,7 +8,7 @@ output:
     df_print: paged
   word_document: default
 toc: TRUE
-thanks: 'Code and data are available in this GitHub repository:'
+thanks: 'Code and data are available in this GitHub repository: https://github.com/LuckynaCharms/Gender-Wage-Gaps-in-STEM.git'
 abstract: The field of science, technology, engineering, and mathematics (STEM) has
   predominantely been occupied by men up until the late nineteenth century where enrollment
   in U.S. higher educated has seen an increase of women. Many individuals would argue
@@ -85,6 +85,7 @@ dt <- descriptive_statistics
 names(dt)[names(dt) == "X"] <- "Variable"
 names(dt)[names(dt) == "Gender.Difference"] <- "Gender Difference"
 
+#format table with title
   knitr::kable(dt, booktabs = TRUE, caption = 'Descriptive Statistics',"pipe")
 ```
 **Note**: n = 216,317. Women constitute 49.6 percent of the sample. The sample is American Community Survey (ACS) 2009–2018 respondents who are employed, not in group quarters, with a college degree or more, born between 1986 and 1988, without children. The sample is re-weighted to the 2018 distribution of all time-invariant characteristics available in the ACS. STEM = science, technology, engineering, and mathematics.
@@ -112,6 +113,7 @@ names(df)[names(df) == "Predicted.Earnings"] <- "Predicted Earnings"
 names(df)[names(df) == "Predicted.Log.Earnings"] <- "Predicted Log Earnings"
 names(df)[names(df) == "Log.Earnings.Difference.from..I."] <- "Predicted Log Earnings from (I)"
 
+#format table with title
   knitr::kable(df, booktabs = TRUE, caption = 'Predicted Earnings by STEM Occupation and High-Tech Industry',"pipe")
 ```
 **Note**: Values in parentheses are standard errors. All models include controls discussed in the supplemental materials. The second sample includes and indicator of parenthood status. Predicted earnings are computed from models that include all controls and an interaction between STEM occupation and
@@ -141,48 +143,44 @@ In this case, the gender earnings gap either (1) emerges over time among those w
 
 ```{r, echo = FALSE, results = FALSE}
 
+#import file to global environment
 no_occ_tech <- read.csv(file = "no_Stem_occ_no_hi_tech.csv")
-
 no_occ_hi_tech = read.csv(file = "no_Stem_occ_hi_tech.csv")
-head(no_occ_hi_tech)
-
 stem_occ_no_hi_tech <- read.csv(file = "Stem_occ_no_hi_tech.csv")
-head(stem_occ_no_hi_tech)
-
 stem_occ_hi_tech <- read.csv((file = "stem_occ_hi_tech.csv"))
-head(stem_occ_hi_tech)
 
-head(no_occ_tech)
-
+#graph plot
 ggp1 <- ggplot(no_occ_tech, aes(x = year, y = gap, color = degree)) +
   geom_ribbon(aes(ymin = gap - std, ymax = gap + std, fill = degree), alpha = 0.2, color = NA) +
   geom_line() + 
   ylim(-500, 500) +
   labs(subtitle = "Fig. 1.1 No Stem Occ. / No High-Tech Ind", y = "Earnings gap ($)", x = "Year")
 
-
-ggp2 <- ggplot(no_occ_hi_tech, aes(x = year, y = gap, color = degree)) + 
+#graph plot
+ggp2 <- ggplot(no_occ_hi_tech, aes(x = year, y = gap, color = degree)) +
   geom_ribbon(aes(ymin = gap - std, ymax = gap + std, fill = degree), alpha = 0.2, color = NA) + 
   geom_line() + 
   ylim(-500, 500) + 
   labs(subtitle = "Fig. 1.2 No Stem Occ. / High-Tech Ind", y = "Earnings gap ($)", x = "Year") 
 
+#graph plot
 ggp3 <-ggplot(stem_occ_no_hi_tech, aes(x = year, y = gap, color = degree)) +
   geom_ribbon(aes(ymin = gap - std, ymax = gap + std, fill = degree), alpha = 0.2, color = NA) +
   geom_line() +
   ylim(-500,500) +
   labs(subtitle = "Fig. 1.3 Stem Occ. / No High-Tech Ind", y = "Earnings gap ($)", x = "Year")
 
+#graph plot
 ggp4 <-ggplot(stem_occ_hi_tech, aes(x = year, y = gap, color = degree)) + 
   geom_ribbon(aes(ymin = gap - std, ymax = gap + std, fill = degree), alpha = 0.2, color = NA) +
   geom_line()+ylim(-500, 500) + 
   labs(subtitle = "Fig. 1.4 Stem Occ. / High-Tech Ind", y = "Earnings gap ($)", x = "Year")
 
+#arrange plot side by side
 grid.arrange(ggp1, ggp2, ggp3, ggp4, ncol = 2, nrow = 2)
 ```
-
 **Figure 1.** Gender earnings gaps over time, by STEM degree and STEM work  
-**Source:** American Community Survey, 2009 to 2018.  
+**Source:** American Community Survey, 2009 to 2018.
 *Note:* The sample is employed respondents with college degrees born between 1986 and 1988, without children. All years are reweighted to the 2018 distributions of time-invariant characteristics. Shaded areas indicate 95 percent confidence intervals. Results are computed from regression models interacting gender, science, technology, engineering, and mathematics (STEM) degree, STEM occupation (Occ.), and high-tech industry (Ind). Models are estimated separately by year.
 
 The graph from *Figure 1.1* shows a relatively equal distribution of the gender earnings gap non-STEM degree and STEM degree holders who do not work in a STEM occupation and non high-tech industry. The shaded corresponding areas denote a 95 percent confidence interval of the potential gap earnings calculated by taking the value of the gap and its standard deviation.
@@ -212,9 +210,12 @@ In conclusion, this analysis suggests that equalization in STEM education educat
 \pagebreak
 ## Appendix
 ``` {r}
+
+#import data from global environment
 women_non_stem <- read.csv(file = "women_non_stem.csv")
 dt <- women_non_stem
 
+#format table
   knitr::kable(dt, booktabs = TRUE, caption = 'Most common occupations of women in non-STEM occupations with STEM degrees',"pipe")
 
 ```
@@ -222,14 +223,17 @@ dt <- women_non_stem
 **Appendix: Figure 1:** Most common occupations of women in non-STEM occupations with STEM degrees
 
 ```{r}
+#import data from global environment
 post_exit_choices <- read.csv(file = "post_exit_choices.csv")
 dc <- post_exit_choices
 
+#rename columns
 names(dc)[names(dc) == "How.often.did.you.think.about.a.transfer.to"] <- "How often did you think about a transfer to"
 names(dc)[names(dc) == "Several.times.per.year"] <- "Several times per year"
 names(dc)[names(dc) == "Several.times.per.month"] <- "Several times per month"
 names(dc)[names(dc) == "Several.times.per.week"] <- "Several times per week"
 
+#format table
 knitr::kable(dc, booktabs = TRUE, caption = 'Frequencies of intention to leave scores for various post-exit choices (ITL)',"pipe")
 ```
 **Appendix: Figure 2:** Frequencies of intention to leave scores for various post-exit choices
